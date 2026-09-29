@@ -46,6 +46,14 @@ El antiguo one-page (`index.html` con 12 modales `#manometro`, `#valvulas`, etc.
 - Cabeceras: HSTS (1 año), X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, Referrer-Policy, Permissions-Policy.
 - gzip (mod_deflate) y caché: imágenes/fuentes 1 año, CSS/JS 1 mes, HTML sin caché.
 
+## 2026-09-29 — Tarjetas de producto + galería lightbox
+
+- En las 9 categorías con tabla (manómetros, válvulas, válvulas de seguridad, termómetros, termómetros de laboratorio, filtros, reductoras, trampas, accesorios para caldero) la tabla de productos se reemplazó por un grid de tarjetas `.product-grid > .col-sm-6.col-md-4.col-lg-3 > .product-card`: imagen a todo el ancho, `<h2 class="h4 product-title">` (se conservan los `id` de ancla) y especificaciones en texto más pequeño. 1 por fila en móvil, 2 en tablet, 3–4 en escritorio. Textos, imágenes y `alt` sin cambios (verificado por script).
+- Calibradores, flujómetros e hidrolavadoras solo tienen una imagen compuesta: se mantiene su tabla de especificaciones y la imagen se enmarca en `.product-card.product-card-single` (tamaño natural, centrada).
+- Cada imagen enlaza a sí misma con `rel="prettyPhoto[gallery-<categoria>]"`; el lightbox navega entre los productos de la misma categoría. No existen versiones HD: el lightbox muestra el mismo archivo (180–950 px).
+- `css/main.css`: nuevos estilos `.product-grid`, `.product-card`, `.product-card-img`, `.product-info`, `.product-card-single` (flexbox para alturas iguales, hover con sombra y zoom leve de imagen, respeta `prefers-reduced-motion`). `.manometro` de `estilos.css` no se tocó (lo usa el home).
+- `js/main.js`: la inicialización existente de prettyPhoto ahora usa `{social_tools: false, deeplinking: false, show_title: true, theme: 'pp_default'}`. `deeplinking` se desactivó porque HTTrack alteró esa parte de `jquery.prettyPhoto.js` (reemplazó `/` por `index.html`).
+
 ### Pendientes conocidos (no modificados)
 - Formulario de contacto: `action="http://www.econtrisac.com/sendmail.php"`; `sendmail.php` no está en el repositorio y `js/main.js` lo envía por AJAX sin datos. No se tocó por indicación expresa.
 - `fonts/` contiene webfonts guardadas como `.html` por HTTrack (Font Awesome no decodifica).

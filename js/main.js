@@ -173,7 +173,10 @@ jQuery(function($) {'use strict';
 
 	//Pretty Photo
 	$("a[rel^='prettyPhoto']").prettyPhoto({
-		social_tools: false
+		social_tools: false,
+		deeplinking: false,
+		show_title: true,
+		theme: 'pp_default'
 	});
 
 

@@ -673,3 +673,112 @@ ul.nostyle i {
   box-shadow: none;
   -webkit-box-shadow: none;
 }
+/***********************
+****** Product cards ****
+************************/
+.product-grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.product-grid:before,
+.product-grid:after {
+  display: none;
+}
+.product-grid > [class*="col-"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+@media only screen and (max-width: 767px) {
+  .product-grid > [class*="col-"] {
+    width: 100%;
+  }
+}
+.product-card {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  -webkit-transition: box-shadow 300ms, border-color 300ms;
+  transition: box-shadow 300ms, border-color 300ms;
+}
+.product-card:hover {
+  border-color: #ddd;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.product-card-img {
+  display: block;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+.product-card-img:focus {
+  outline: 2px solid #72C05B;
+  outline-offset: 2px;
+}
+.product-card-img img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  -webkit-transition: -webkit-transform 300ms;
+  transition: transform 300ms;
+}
+.product-card:hover .product-card-img img {
+  -webkit-transform: scale(1.04);
+  transform: scale(1.04);
+}
+.product-info {
+  padding-top: 15px;
+}
+.product-card .product-info .product-title {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}
+.product-info ul,
+.product-info ol {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 20px;
+}
+.product-info li {
+  margin-bottom: 3px;
+}
+.product-card-single {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  max-width: 100%;
+  margin: 10px auto 30px;
+}
+.product-card-single .product-card-img img {
+  width: auto;
+}
+.product-card-single:hover .product-card-img img {
+  -webkit-transform: none;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .product-card-img img {
+    -webkit-transition: none;
+    transition: none;
+  }
+  .product-card:hover .product-card-img img {
+    -webkit-transform: none;
+    transform: none;
+  }
+}
