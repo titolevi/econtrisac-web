@@ -54,6 +54,18 @@ El antiguo one-page (`index.html` con 12 modales `#manometro`, `#valvulas`, etc.
 - `css/main.css`: nuevos estilos `.product-grid`, `.product-card`, `.product-card-img`, `.product-info`, `.product-card-single` (flexbox para alturas iguales, hover con sombra y zoom leve de imagen, respeta `prefers-reduced-motion`). `.manometro` de `estilos.css` no se tocó (lo usa el home).
 - `js/main.js`: la inicialización existente de prettyPhoto ahora usa `{social_tools: false, deeplinking: false, show_title: true, theme: 'pp_default'}`. `deeplinking` se desactivó porque HTTrack alteró esa parte de `jquery.prettyPhoto.js` (reemplazó `/` por `index.html`).
 
+## 2026-09-29 — Sin lightbox + grid de categorías en el home
+
+- Lightbox eliminado: se borró la inicialización de prettyPhoto en `js/main.js` y el atributo `rel="prettyPhoto[...]"` de los 53 enlaces `.product-card-img` de las 12 páginas de categoría. Los enlaces siguen apuntando al archivo de imagen (clic = abre la imagen en el navegador). CSS, layout y los `<link>`/`<script>` de `prettyPhoto.css` / `jquery.prettyPhoto.js` se dejaron intactos (ya no se inicializan).
+- `index.html` `#features`: la columna derecha (lista `.media.service-box` con miniaturas circulares) se reemplazó por `.row.category-grid` con 12 tarjetas `.col-xs-6.col-sm-6 > a.cat-card` (imagen `_min` + `<h3 class="cat-card-title">`, se mantiene el nivel h3 del original). 2 tarjetas por fila también en móvil. Imagen izquierda, título y párrafo de marcas sin cambios. Se conservan los `alt` descriptivos originales.
+- `css/main.css`: nuevos estilos `.category-grid`, `.cat-card`, `.cat-card-img`, `.cat-card-body`, `.cat-card-title` (flexbox para alturas iguales, hover con sombra + `translateY(-2px)`, foco visible `#72C05B`, respeta `prefers-reduced-motion`). La regla `#features .media.service-box:first-child` quedó sin uso.
+
+## 2026-09-29 — Fixes de QA: enlaces de imagen y prettyPhoto
+
+- Los 53 enlaces `a.product-card-img` de las 12 páginas de categoría ya no abren el `.jpg` crudo: su `href` ahora apunta a la URL limpia de la propia categoría (p. ej. `/manometros/`). `src`, `alt` y `title` de las imágenes sin cambios.
+- Se eliminaron `<link href="/css/prettyPhoto.css">` y `<script src="/js/jquery.prettyPhoto.js">` de `index.html` y de las 12 páginas de categoría. Los archivos `css/prettyPhoto.css` y `js/jquery.prettyPhoto.js` se conservan en el repositorio. `404.html` no se tocó (aún los carga).
+- Sin cambios en CSS, layout, `js/main.js`, `.htaccess`, `robots.txt` ni `sitemap.xml`.
+
 ### Pendientes conocidos (no modificados)
 - Formulario de contacto: `action="http://www.econtrisac.com/sendmail.php"`; `sendmail.php` no está en el repositorio y `js/main.js` lo envía por AJAX sin datos. No se tocó por indicación expresa.
 - `fonts/` contiene webfonts guardadas como `.html` por HTTrack (Font Awesome no decodifica).
