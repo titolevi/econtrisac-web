@@ -1,0 +1,36 @@
+# .cursorrules — econtrisac.com
+
+## Stack
+- HTML5 semántico, CSS3 (Bootstrap 3 legacy + mejoras), JS vanilla
+- Sitio estático (sin framework PHP/Laravel)
+- Modelo usado: Claude 3.5 Sonnet (Cursor Pro)
+
+## SEO (reglas críticas)
+- Cada página debe tener: `<title>` con keyword, `meta description` con keyword + CTA, `<link rel="canonical" />`, Open Graph (`og:title`, `og:description`, `og:image`, `og:url`), Twitter Cards (`twitter:card`)
+- `<h1>` obligatorio en cada página con keyword principal
+- Imágenes siempre con `alt` descriptivo (nunca vacío)
+- JSON-LD obligatorio en cada página: `BreadcrumbList` + `Product` (si aplica) + `Organization`
+- URLs limpias: `/categoria/`, sin `.html`, sin parámetros
+- Breadcrumbs visibles en cada página de categoría/producto
+
+## Contenido
+- Español peruano (tú, usted según contexto B2B)
+- Keywords reales del negocio: equipos industriales, instrumentos de medición, válvulas, manómetros, termómetros, industriales Perú
+- Marcas autorizadas: Spirax Sarco, ASCO, Kunkle, Crane, Reotemp, Danfoss, Vaportec, Nuovafima, Taylor, Shimaden, Genebre, Honeywell, Apollo Valves, Furnas, etc.
+- NO inventar productos o marcas que no estén en el index.html original
+
+## Estructura
+- Un archivo HTML por categoría de producto (no one-page)
+- Home (index.html) como landing de marca + enlaces a categorías
+- Navegación consistente entre todas las páginas
+- Mantener carpeta `images/`, `css/`, `js/`, `fonts/` existentes
+
+## Lo que NO hacer
+- NO eliminar archivos existentes sin autorización
+- NO modificar el diseño visual original sin autorización
+- NO agregar frameworks JS nuevos
+- NO cambiar la paleta de colores ni tipografías
+
+## STATE.md
+- Documentar cambios en la estructura del sitio en `STATE.md` en la raíz
+- Incluir: nuevas páginas creadas, cambios en SEO, configuración de .htaccess

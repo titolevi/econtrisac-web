@@ -3,6 +3,106 @@ RewriteEngine on
 
 RewriteOptions inherit
 
+# ----------------------------------------------------------------------
+# Opciones generales
+# ----------------------------------------------------------------------
+Options -Indexes
+DirectoryIndex index.html index.php
+ErrorDocument 404 /404.html
+AddDefaultCharset UTF-8
+
+# ----------------------------------------------------------------------
+# Redirecciones (301)
+# ----------------------------------------------------------------------
+# La validación de certificados SSL (AutoSSL / Let's Encrypt) debe responder sin redirección.
+RewriteRule ^\.well-known/ - [L]
+
+# HTTPS + dominio sin www (https://econtrisac.com) en un solo salto
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://econtrisac.com%{REQUEST_URI} [R=301,L,NE]
+
+# /index.html y /categoria/index.html -> URL limpia con barra final
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+
+# Bloquear archivos ocultos (salvo .well-known) y archivos internos del proyecto
+RewriteRule (^|/)\.(?!well-known/) - [F]
+RewriteRule (^|/)(STATE|prompt-cursor|README)\.md$ - [F,NC]
+
+# ----------------------------------------------------------------------
+# Cabeceras de seguridad
+# ----------------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=()"
+  Header unset X-Powered-By
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Tipos MIME
+# ----------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType application/xml .xml
+  AddType image/x-icon .ico
+  AddType application/vnd.ms-fontobject .eot
+  AddType font/ttf .ttf
+  AddType font/woff .woff
+  AddType font/woff2 .woff2
+  AddType image/svg+xml .svg
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Compresión gzip
+# ----------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/javascript
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+  AddOutputFilterByType DEFLATE application/xml application/rss+xml application/ld+json
+  AddOutputFilterByType DEFLATE image/svg+xml image/x-icon
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject font/ttf font/otf
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Caché del navegador
+# ----------------------------------------------------------------------
+# css/ y js/ no llevan versión en el nombre: se usa 1 mes para que los cambios lleguen a los usuarios.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 week"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType application/xml "access plus 1 day"
+  ExpiresByType text/plain "access plus 1 day"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  <FilesMatch "\.(jpe?g|png|gif|svg|ico|eot|ttf|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+</IfModule>
+
 # php -- BEGIN cPanel-generated handler, do not edit
 # Set the “ea-php74” package as the default “PHP” programming language.
 <IfModule mime_module>
