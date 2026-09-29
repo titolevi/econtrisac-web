@@ -720,8 +720,7 @@ ul.nostyle i {
   display: block;
   overflow: hidden;
   border-radius: 4px;
-  cursor: -webkit-zoom-in;
-  cursor: zoom-in;
+  cursor: pointer;
 }
 .product-card-img:focus {
   outline: 2px solid #72C05B;

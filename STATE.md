@@ -66,6 +66,12 @@ El antiguo one-page (`index.html` con 12 modales `#manometro`, `#valvulas`, etc.
 - Se eliminaron `<link href="/css/prettyPhoto.css">` y `<script src="/js/jquery.prettyPhoto.js">` de `index.html` y de las 12 páginas de categoría. Los archivos `css/prettyPhoto.css` y `js/jquery.prettyPhoto.js` se conservan en el repositorio. `404.html` no se tocó (aún los carga).
 - Sin cambios en CSS, layout, `js/main.js`, `.htaccess`, `robots.txt` ni `sitemap.xml`.
 
+## 2026-09-29 — Home sin imagen principal + cursor de tarjetas
+
+- `index.html` `#features`: se eliminó la columna izquierda con `/images/producto.jpg`; la columna del grid de categorías pasó de `col-sm-6` a `col-sm-12` y ocupa todo el ancho. El archivo `images/producto.jpg` se conserva (fue la base de `og-image.jpg`).
+- `css/main.css`: en `.product-card-img` se reemplazó `cursor: -webkit-zoom-in; cursor: zoom-in;` por `cursor: pointer;` (los enlaces ya no abren un lightbox).
+- Sin cambios en páginas de categoría, imágenes, `alt`, `js/main.js`, `.htaccess`, `robots.txt` ni `sitemap.xml`.
+
 ### Pendientes conocidos (no modificados)
 - Formulario de contacto: `action="http://www.econtrisac.com/sendmail.php"`; `sendmail.php` no está en el repositorio y `js/main.js` lo envía por AJAX sin datos. No se tocó por indicación expresa.
 - `fonts/` contiene webfonts guardadas como `.html` por HTTrack (Font Awesome no decodifica).
