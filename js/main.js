@@ -162,12 +162,24 @@ jQuery(function($) {'use strict';
 		event.preventDefault();
 		var form_status = $('<div class="form_status"></div>');
 		$.ajax({
-			url: $(this).attr('action'),
+			url: form.attr('action'),
+			type: 'POST',
+			data: form.serialize(),
+			dataType: 'json',
 			beforeSend: function(){
-				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Email is sending...</p>').fadeIn() );
+				form.find('.form_status').remove();
+				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando mensaje...</p>').fadeIn() );
 			}
 		}).done(function(data){
-			form_status.html('<p class="text-success">Thank you for contact us. As early as possible  we will contact you</p>').delay(3000).fadeOut();
+			if (data && data.success) {
+				form_status.html('<p class="text-success">' + (data.message || 'Gracias por escribirnos. Nos pondremos en contacto con usted a la brevedad.') + '</p>').delay(5000).fadeOut();
+				form[0].reset();
+			} else {
+				form_status.html('<p class="text-danger">' + ((data && data.message) || 'No se pudo enviar el mensaje. Por favor, inténtelo nuevamente.') + '</p>');
+			}
+		}).fail(function(jqXHR){
+			var msg = (jqXHR.responseJSON && jqXHR.responseJSON.message) || 'No se pudo enviar el mensaje. Por favor, inténtelo nuevamente más tarde.';
+			form_status.html('<p class="text-danger">' + msg + '</p>');
 		});
 	});
 

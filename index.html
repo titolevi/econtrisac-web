@@ -542,7 +542,11 @@
                     <h2 class="section-title text-center wow fadeInDown animated" style="visibility: visible;">Escríbanos</h2>
                     <p class="text-center wow fadeInDown animated" style="visibility: visible;">Uno de nuestros representantes se pondrá en contacto con Usted.</p>
                 </div>
-                <form id="main-contact-form" name="contact-form" method="post" action="http://www.econtrisac.com/sendmail.php">
+                <form id="main-contact-form" name="contact-form" method="post" action="/sendmail.php">
+                    <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                        <label for="website">No completar este campo</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                    </div>
                     <div class="col-lg-6 animated animate-from-left" style="opacity: 1; left: 0px;">
 
                         <div class="form-group">
