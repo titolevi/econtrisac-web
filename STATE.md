@@ -35,7 +35,7 @@ El antiguo one-page (`index.html` con 12 modales `#manometro`, `#valvulas`, etc.
 - JSON-LD (`@graph`): `Organization` + `WebSite` + `BreadcrumbList` en todas; `Product` + `CollectionPage` en categorías; `WebPage` + `ItemList` en home.
 - Nueva imagen `images/og-image.jpg` (1200×630) generada a partir de `images/producto.jpg` + logo.
 - Pendiente de reemplazar placeholders en todas las páginas: `VERIFICATION_CODE` (Search Console) y `G-MEASUREMENT_ID` (GA4).
-- Roboto se carga por HTTPS desde el `<head>` (el `@import` de `css/main.css` usa `http://` y se bloquea en HTTPS).
+- Roboto se carga por HTTPS desde el `<head>` (el `@import` de `css/main.css` se eliminó el 2026-09-29, ver "Ajustes de tipografía").
 - `robots.txt` y `sitemap.xml` (13 URLs, lastmod 2026-09-29) creados.
 
 ### .htaccess
@@ -71,6 +71,18 @@ El antiguo one-page (`index.html` con 12 modales `#manometro`, `#valvulas`, etc.
 - `index.html` `#features`: se eliminó la columna izquierda con `/images/producto.jpg`; la columna del grid de categorías pasó de `col-sm-6` a `col-sm-12` y ocupa todo el ancho. El archivo `images/producto.jpg` se conserva (fue la base de `og-image.jpg`).
 - `css/main.css`: en `.product-card-img` se reemplazó `cursor: -webkit-zoom-in; cursor: zoom-in;` por `cursor: pointer;` (los enlaces ya no abren un lightbox).
 - Sin cambios en páginas de categoría, imágenes, `alt`, `js/main.js`, `.htaccess`, `robots.txt` ni `sitemap.xml`.
+
+## 2026-09-29 — Ajustes de tipografía y legibilidad
+
+- Fuentes: se eliminó el `@import` de Google Fonts de `css/main.css`. En los 14 HTML el `<link>` de Roboto pasó a `family=Roboto:300,400,700&display=swap` (sin 100 ni itálicas; `#testimonial p` usa itálica sintetizada si llega a mostrarse).
+- `css/main.css`:
+  - `h1`–`h6`: `font-weight` 600 → 700. `p`: 14px/300 → 15px/400.
+  - `.section-header .section-title`: 28px → 32px (line-height 42px). `.section-header p`: color `#8d8d8d` → `#666666` (contraste 5,7:1 sobre blanco, cumple AA).
+  - `#main-slider .carousel-content p` (nueva regla): 18px/28px, `max-width: 760px` centrado, `text-shadow: 0 1px 3px rgba(0,0,0,.6)`.
+  - `#cta2 h2`: 44px → 36px (line-height 1.2). `.cat-card-title`: 13px → 14px.
+  - `#contact-area`: inputs/textarea 13px → 16px (evita zoom automático en iOS), labels 300 → 400.
+  - Nueva media query `max-width: 767px`: h2 del slider 26px (margin-top 140px), párrafo del slider 15px, `.section-title` 24px, `#cta2 h2` 28px.
+- `index.html` slide 3: lista de marcas en mayúsculas/minúsculas normales, se quitó el "KUNKLE" duplicado, se añadió el espacio en "ASCO, Kunkle" y "PARTLOW BRAND" → "Partlow".
 
 ### Pendientes conocidos (no modificados)
 - Formulario de contacto: `action="http://www.econtrisac.com/sendmail.php"`; `sendmail.php` no está en el repositorio y `js/main.js` lo envía por AJAX sin datos. No se tocó por indicación expresa.
